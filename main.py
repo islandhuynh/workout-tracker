@@ -1,5 +1,5 @@
 from requests.api import request
-from config import app_id, app_key, sheetys_endpoint
+from config import app_id, app_key, sheetys_endpoint, auth
 import requests
 from datetime import datetime
 
@@ -20,6 +20,7 @@ response.raise_for_status()
 workout_data = response.json()["exercises"]
 
 sheetys_headers = {
+  "Authorization": auth,
   "Content-Type": "application/json"
 }
 
@@ -33,4 +34,6 @@ for work_out in workout_data:
       "calories": work_out["nf_calories"]
     }
   }
-  requests.post(url=sheetys_endpoint, json=work_out_info)
+  test = requests.post(url=sheetys_endpoint, json=work_out_info, headers=sheetys_headers)
+  print(test)
+  
