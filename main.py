@@ -3,7 +3,8 @@ from config import app_id, app_key, sheetys_endpoint, auth
 import requests
 from datetime import datetime
 
-text = "I ran 3 miles and walked 2 miles"
+user_input = input("Tell me which exercises you did: ")
+
 nutritionix_endpoint = "https://trackapi.nutritionix.com/v2/natural/exercise"
 headers = {
   "x-app-id": app_id,
@@ -12,7 +13,7 @@ headers = {
 }
 
 request_body = {
-  "query": "I ran 3 miles and walked 2 miles for 30 minutes",
+  "query": user_input
 }
 
 response = requests.post(url=nutritionix_endpoint, json=request_body,headers=headers)
@@ -34,6 +35,5 @@ for work_out in workout_data:
       "calories": work_out["nf_calories"]
     }
   }
-  test = requests.post(url=sheetys_endpoint, json=work_out_info, headers=sheetys_headers)
-  print(test)
+  requests.post(url=sheetys_endpoint, json=work_out_info, headers=sheetys_headers)
   
